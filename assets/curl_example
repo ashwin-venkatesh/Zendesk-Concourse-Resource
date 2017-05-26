@@ -1,0 +1,5 @@
+#!/bin/bash
+
+curl "https://onboardsupport.zendesk.com/api/v2/search.json" \
+-G --data-urlencode "query=created>1days" \
+-v -u pablodepacas@hotmail.com:124816

@@ -1,0 +1,4 @@
+#!/bin/bash
+payload=$(cat <&0) # STDIN params
+echo $payload
+

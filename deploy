@@ -1,0 +1,2 @@
+docker build -t pivotalashwin/tickets_resource .
+docker push pivotalashwin/tickets_resource
