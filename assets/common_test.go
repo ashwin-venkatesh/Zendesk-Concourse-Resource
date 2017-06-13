@@ -8,27 +8,29 @@ import (
 )
 
 func TestCanParseInput(t *testing.T) {
-	input := `
+	input := []byte(`
 {"version":
   {"ref": "1"}
 }
-`
+`)
 	expected := "1"
-	payload, err := parseInputJson(strings.NewReader(input))
+	payload := parseInputJson(input)
 	actual := payload.Version.Ref
 
 	assertEqual(t, expected, actual)
-	assert.Nil(t, err)
 }
 
 func TestCanSeedValue(t *testing.T) {
 	input := []byte("{}")
 	expected := "1"
-	payload, err := parseInputJson(strings.NewReader(input))
+	payload := parseInputJson(input)
 	actual := payload.Version.Ref
 
 	assertEqual(t, expected, actual)
-	assert.Nil(t, err)
+}
+
+func TestCanFetchId(t *testing.T) {
+	findById("onboardsupport", "pablodepacas@hotmail.com", "124816")
 }
 
 func assertEqual(t *testing.T, expected string, actual string) {

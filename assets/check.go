@@ -10,5 +10,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	parseInputJson(inbytes)
+	payload := parseInputJson(inbytes)
+	_ = findById("onboardsupport", "pablodepacas@hotmail.com", "124816", payload.Version.Ref)
 }
