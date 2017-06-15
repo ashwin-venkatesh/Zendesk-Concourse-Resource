@@ -8,24 +8,19 @@ import (
 	"bytes"
 )
 
-type Source struct {
-	Uri        string
-	Branch     string
-	PrivateKey string
-}
-
-type Version struct {
-	Ref string
-}
-
 type Payload struct {
-	Source  Source
-	Version Version
+	Source  struct {
+		Uri        string
+		Branch     string
+		PrivateKey string
+	}
+	Version struct {
+		Ref string
+	}
 }
 
 func parseInputJson(inbytes []byte) *Payload {
-	defaultVersion := &Version{Ref: "1"}
-	payload := &Payload{Version: *defaultVersion}
+	payload := &Payload{Version: struct {Ref string}{Ref: "1"}}
 
 	if err := json.Unmarshal(inbytes, payload); err != nil {
 		fmt.Fprintf(os.Stderr, "error parsing input as JSON: %s", err)
