@@ -11,5 +11,5 @@ func main() {
 		panic(err)
 	}
 	payload := parseInputJson(inbytes)
-	_ = findById("onboardsupport", "pablodepacas@hotmail.com", "124816", payload.Version.Ref)
+	_ = getLastDateById("onboardsupport", "pablodepacas@hotmail.com", "124816", payload.Version.Ref)
 }

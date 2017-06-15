@@ -68,3 +68,10 @@ func parseZendDeskFindByIdJson(jsonString string) *ZendeskResponse{
 
 	return response
 }
+
+func getLastDateById(subdomain string, userName string, password string, id string) string {
+	jsonResponse := findById(subdomain, userName, password, id)
+	zendeskResponse := parseZendDeskFindByIdJson(jsonResponse)
+	date := zendeskResponse.Results[0].Created_At
+	return date
+}
