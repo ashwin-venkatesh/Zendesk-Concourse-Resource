@@ -2,9 +2,7 @@ package main
 
 import (
 	"testing"
-	"github.com/stretchr/testify/assert"
-	"github.com/cloudfoundry/garden-runc-release/src/github.com/gogo/protobuf/io"
-	"strings"
+	"fmt"
 )
 
 func TestCanParseInput(t *testing.T) {
@@ -30,7 +28,25 @@ func TestCanSeedValue(t *testing.T) {
 }
 
 func TestCanFetchId(t *testing.T) {
-	findById("onboardsupport", "pablodepacas@hotmail.com", "124816")
+	findById("onboardsupport", "pablodepacas@hotmail.com", "124816", "1")
+}
+
+func TestParseZendDeskFindByIdJson(t *testing.T) {
+	expectedDate:="expected_date"
+	json := `
+{
+	"results": [
+		{
+			"created_at": "%s"
+		}
+	],
+	"count": 1
+}
+`
+	actual := parseZendDeskFindByIdJson(fmt.Sprintf(json, expectedDate))
+	actualDate := actual.Results[0].Created_At
+
+	assertEqual(t, expectedDate, actualDate)
 }
 
 func assertEqual(t *testing.T, expected string, actual string) {

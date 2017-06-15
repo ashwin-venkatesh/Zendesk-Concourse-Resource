@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"net/http"
+	"bytes"
 )
 
 type Source struct {
@@ -48,5 +49,27 @@ func findById(subdomain string, userName string, password string, id string) str
 		os.Exit(1)
 	}
 	defer resp.Body.Close()
-	return string(resp.Body)
+
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(resp.Body)
+
+	return buf.String()
+}
+
+type ZendeskResponse struct {
+	Results []struct {
+		Created_At string
+	}
+	Count int
+}
+
+func parseZendDeskFindByIdJson(jsonString string) *ZendeskResponse{
+	response:= &ZendeskResponse{}
+
+	if err := json.Unmarshal([]byte(jsonString), response); err != nil {
+		fmt.Fprintf(os.Stderr, "error parsing response as JSON: %s", err)
+		os.Exit(1)
+	}
+
+	return response
 }
